@@ -1,0 +1,52 @@
+[
+  {
+    "name": "30 Seconds To Mars",
+    "picture": "mars.jpg",
+    "songs": [
+      "30 Seconds To Mars - From Yesterday.mp3",
+      "30 Seconds To Mars - Hurricane.mp3",
+      "Thirty Seconds To Mars - The Fantasy.mp3"
+    ]
+  },
+  {
+    "name": "Linkin park",
+    "picture": "linkin_park.jpg",
+    "songs": [
+      "Linkin Park - From The Inside.mp3",
+      "Linkin Park - In The End.mp3",
+      "Linkin Park - Leave Out All The Rest.mp3",
+      "Linkin Park - My December.mp3",
+      "Linkin Park - Numb.mp3",
+      "Linkin Park - What I've Done.mp3"
+    ]
+  },
+  {
+    "name": "Red Hot Chili Peppers",
+    "picture": "red_hot.jpg",
+    "songs": [
+      "Red Hot Chili Peppers - By The Way.mp3",
+      "Red Hot Chili Peppers - Can't Stop.mp3"
+    ]
+  },
+  {
+    "name": "Three Days Grace",
+    "picture": "three_days_grace.jpg",
+    "songs": [
+      "Three Days Grace - Human Race.mp3",
+      "Three Days Grace - Never Too Late.mp3"
+    ]
+  },
+  {
+    "name": "Other",
+    "picture": "other.jpg",
+    "songs": [
+      "Audioslave - Be Yourself.mp3",
+      "Death From Above 1979 - Always On.mp3",
+      "Jhonny Cash - I Hurt Myself.mp3",
+      "Saving Abel - Addicted.mp3",
+      "Skillet - Hero.mp3",
+      "Slash - Anastasia.mp3",
+      "Stone Sour - Inhale.mp3",
+    ]
+  }
+]
