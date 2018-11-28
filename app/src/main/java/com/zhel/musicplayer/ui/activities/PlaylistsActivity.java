@@ -1,6 +1,7 @@
 package com.zhel.musicplayer.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,14 +11,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.zhel.musicplayer.R;
+import com.zhel.musicplayer.domain.models.Playlist;
 import com.zhel.musicplayer.ui.adapters.PlaylistsAdapter;
-import com.zhel.musicplayer.ui.data.Repository;
-import com.zhel.musicplayer.ui.data.impl.RepositoryImpl;
+import com.zhel.musicplayer.data.Repository;
+import com.zhel.musicplayer.data.impl.RepositoryImpl;
 
 public class PlaylistsActivity extends AppCompatActivity {
 
     private static final int COLUMN_COUNT = 2;
-    private Repository repository = new RepositoryImpl();
+    private Repository repository = new RepositoryImpl(this);
 
 
     @Override
@@ -25,12 +27,22 @@ public class PlaylistsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlists);
 
-        RecyclerView playlists = findViewById(R.id.playlists);
+        RecyclerView playlistsView = findViewById(R.id.playlists);
         GridLayoutManager grid = new GridLayoutManager(this, COLUMN_COUNT);
 
-        playlists.setLayoutManager(grid);
-        playlists.addItemDecoration(new ItemDecoration(this));
-        playlists.setAdapter(new PlaylistsAdapter(repository.getPlaylists(), this));
+        playlistsView.setLayoutManager(grid);
+        playlistsView.addItemDecoration(new ItemDecoration(this));
+        playlistsView.setAdapter(new PlaylistsAdapter(repository.getPlaylists(), this, new PlaylistsAdapter.OnPlaylistClickListener() {
+            @Override
+            public void onPlaylistClick(Playlist playlist) {
+
+                Intent intent = new Intent(PlaylistsActivity.this, PlaylistActivity.class);
+
+                intent.putExtra("key", playlist);
+
+                startActivity(intent);
+            }
+        }));
     }
 
     public static class ItemDecoration extends RecyclerView.ItemDecoration {

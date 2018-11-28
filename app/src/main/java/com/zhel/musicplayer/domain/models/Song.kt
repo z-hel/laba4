@@ -1,4 +1,4 @@
-package com.zhel.musicplayer.ui.domain.models
+package com.zhel.musicplayer.domain.models
 
 /**
  * Класс описания объекта

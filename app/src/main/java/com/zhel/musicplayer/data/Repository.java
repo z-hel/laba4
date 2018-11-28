@@ -1,8 +1,6 @@
-package com.zhel.musicplayer.ui.data;
+package com.zhel.musicplayer.data;
 
-import android.provider.MediaStore;
-
-import com.zhel.musicplayer.ui.domain.models.Playlist;
+import com.zhel.musicplayer.domain.models.Playlist;
 
 import java.util.List;
 
