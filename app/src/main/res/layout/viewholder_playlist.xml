@@ -33,9 +33,10 @@
         app:layout_constraintBottom_toTopOf="@id/playlist_song_count"
         app:layout_constraintEnd_toEndOf="@id/playlist_picture"
         app:layout_constraintHorizontal_bias="0"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:textColor="@color/white"
         tools:text="lfkjhlmgfgfgfgf"
         />
     <TextView
@@ -48,6 +49,8 @@
         app:layout_constraintHorizontal_bias="0"
         android:layout_marginBottom="16dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/white"
         tools:text="Песен: 5"
         />
 

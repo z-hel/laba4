@@ -14,7 +14,7 @@ import com.zhel.musicplayer.ui.viewholders.PlaylistViewHolder;
 import java.util.List;
 
 public class PlaylistsAdapter extends RecyclerView.Adapter<PlaylistViewHolder> {
-    private final Context context;
+    private Context context;
     private List<Playlist> playlists;
 
     private OnPlaylistClickListener onPlaylistClickListener;

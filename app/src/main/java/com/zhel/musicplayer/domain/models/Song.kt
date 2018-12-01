@@ -10,7 +10,7 @@ package com.zhel.musicplayer.domain.models
  * */
 data class Song(
         val name: String,
-        val duration: Int,
+        val duration: String,
         val album: String,
         val artist: String
 )

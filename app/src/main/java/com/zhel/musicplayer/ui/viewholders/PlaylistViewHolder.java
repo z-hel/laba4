@@ -29,6 +29,6 @@ public class PlaylistViewHolder extends RecyclerView.ViewHolder {
         picture.setImageDrawable(Utils.getDrawableFromAssets(itemView.getContext(), playlist.getPicture()));
         picture.setMinimumHeight(picture.getWidth());
         name.setText(playlist.getName());
-        count.setText(Integer.toString(playlist.getSongs().size()));
+        count.setText(String.format("Песен: %s", Integer.toString(playlist.getSongs().size())));
     }
 }
