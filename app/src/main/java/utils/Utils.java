@@ -1,17 +1,13 @@
 package utils;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.drawable.Drawable;
-import android.media.MediaDataSource;
 import android.media.MediaMetadataRetriever;
-import android.net.Uri;
 
 import com.zhel.musicplayer.domain.models.Song;
 
-import java.io.FileDescriptor;
 import java.io.IOException;
-
-import kotlin.Metadata;
 
 public class Utils {
 
@@ -28,21 +24,25 @@ public class Utils {
 
     public static Song getSongFromAssets(Context context, String songFile) {
 
-        String artist = "Unknown Artist";
-        String duration= "0:00";
-        String album = "Unknown Album";
-        String name ="Unknown Name";
+        String artist;
+        String duration;
+        String album;
+        String name;
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         try {
-            mmr.setDataSource(context.getAssets().openFd(songFile).getFileDescriptor());
+            AssetFileDescriptor afd = context.getAssets().openFd(songFile);
+            mmr.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
 
-            artist = "" + mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-            duration = "" + mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-            album = "" + mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
-            name = "" + mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+            artist = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+            duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            album = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+            name = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            artist = "Unknown Artist";
+            duration = "0:00";
+            album = "Unknown Album";
+            name = "Unknown Name";
         }
         mmr.release();
 

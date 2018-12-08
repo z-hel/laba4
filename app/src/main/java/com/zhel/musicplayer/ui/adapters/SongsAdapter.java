@@ -20,9 +20,11 @@ import utils.Utils;
 public class SongsAdapter extends RecyclerView.Adapter<SongsListViewHolder> {
     private List<String> songsList;
     private Context context;
+    private String albumPicture;
 
-    public SongsAdapter(List<String> songsList, Context context) {
+    public SongsAdapter(List<String> songsList, String albumPicture, Context context) {
         this.songsList = songsList;
+        this.albumPicture = albumPicture;
         this.context = context;
     }
 
@@ -40,11 +42,12 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsListViewHolder> {
     public void onBindViewHolder(@NonNull SongsListViewHolder viewHolder, int position) {
         String songString = songsList.get(position);
 
-        viewHolder.bind(songString);
+        viewHolder.bind(songString, albumPicture);
     }
 
     @Override
     public int getItemCount() {
         return songsList.size();
     }
+
 }

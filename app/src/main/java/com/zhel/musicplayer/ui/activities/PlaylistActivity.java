@@ -6,6 +6,7 @@ import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.zhel.musicplayer.R;
@@ -31,8 +32,16 @@ public class PlaylistActivity extends AppCompatActivity {
         songsListView = findViewById(R.id.songs_list);
 
         playlistName.setText(((Playlist)(intent.getSerializableExtra("key"))).getName());
-        SongsAdapter adapter = new SongsAdapter(((Playlist)(intent.getSerializableExtra("key"))).getSongs(), this);
+
+        this.findViewById(R.id.back).setOnClickListener(back -> onBackPressed());
+
+        SongsAdapter adapter = new SongsAdapter(((Playlist)(intent.getSerializableExtra("key"))).getSongs(), ((Playlist)(intent.getSerializableExtra("key"))).getPicture(), this);
         songsListView.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
