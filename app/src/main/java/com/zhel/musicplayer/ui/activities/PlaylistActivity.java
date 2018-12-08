@@ -35,7 +35,20 @@ public class PlaylistActivity extends AppCompatActivity {
 
         this.findViewById(R.id.back).setOnClickListener(back -> onBackPressed());
 
-        SongsAdapter adapter = new SongsAdapter(((Playlist)(intent.getSerializableExtra("key"))).getSongs(), ((Playlist)(intent.getSerializableExtra("key"))).getPicture(), this);
+
+        SongsAdapter adapter = new SongsAdapter(((Playlist)(intent.getSerializableExtra("key"))).getSongs(), ((Playlist)(intent.getSerializableExtra("key"))).getPicture(), this, player -> {
+
+            Intent intentPlayer = new Intent(PlaylistActivity.this, PlayerActivity.class);
+
+
+            intentPlayer.putExtra("album", player.getAlbum());
+            intentPlayer.putExtra("name", player.getName());
+            intentPlayer.putExtra("artist", player.getArtist());
+            intentPlayer.putExtra("duration", player.getDuration());
+            intentPlayer.putExtra("picture", ((Playlist)(intent.getSerializableExtra("key"))).getPicture());
+
+            startActivity(intentPlayer);
+        });
         songsListView.setAdapter(adapter);
 
     }

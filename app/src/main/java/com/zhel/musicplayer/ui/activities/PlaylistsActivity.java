@@ -32,16 +32,13 @@ public class PlaylistsActivity extends AppCompatActivity {
 
         playlistsView.setLayoutManager(grid);
         playlistsView.addItemDecoration(new ItemDecoration(this));
-        playlistsView.setAdapter(new PlaylistsAdapter(repository.getPlaylists(), this, new PlaylistsAdapter.OnPlaylistClickListener() {
-            @Override
-            public void onPlaylistClick(Playlist playlist) {
+        playlistsView.setAdapter(new PlaylistsAdapter(repository.getPlaylists(), this, playlist -> {
 
-                Intent intent = new Intent(PlaylistsActivity.this, PlaylistActivity.class);
+            Intent intent = new Intent(PlaylistsActivity.this, PlaylistActivity.class);
 
-                intent.putExtra("key", playlist);
+            intent.putExtra("key", playlist);
 
-                startActivity(intent);
-            }
+            startActivity(intent);
         }));
     }
 

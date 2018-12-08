@@ -1,4 +1,58 @@
 package com.zhel.musicplayer.ui.activities;
 
-public class PlayerActivity {
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import com.zhel.musicplayer.R;
+
+import utils.Utils;
+
+public class PlayerActivity extends AppCompatActivity{
+
+    private TextView durationFull;
+    private TextView durationEdit;
+    private TextView songName;
+    private TextView songArtist;
+    private TextView songAlbum;
+    private ImageView songPicture;
+    private SeekBar songSeekBar;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_song);
+
+        Intent intent = getIntent();
+
+        durationFull = findViewById(R.id.song_duration_full);
+        durationEdit = findViewById(R.id.song_duration_edit);
+        songName = findViewById(R.id.song_name);
+        songArtist = findViewById(R.id.song_artist);
+        songAlbum = findViewById(R.id.song_album);
+        songPicture = findViewById(R.id.song_picture);
+        songSeekBar = findViewById(R.id.song_seek_bar_duration);
+
+
+        int duration = Integer.valueOf(intent.getSerializableExtra("duration").toString());
+
+        String min =  Integer.toString(duration / 60000);
+        String sec =  Integer.toString((duration % 60000) / 1000);
+        sec = sec.length() == 1 ? "0" + sec : sec;
+//        if (sec.length() == 1) {
+//            sec = "0" + sec;
+//        }
+
+        durationFull.setText(String.format("%s:%s", min, sec));
+        durationEdit.setText("0:00");
+        songName.setText(intent.getSerializableExtra("name").toString());
+        songArtist.setText(intent.getSerializableExtra("artist").toString());
+        songAlbum.setText(intent.getSerializableExtra("album").toString());
+        songPicture.setImageDrawable(Utils.getDrawableFromAssets(this, intent.getSerializableExtra("picture").toString()));
+
+    }
 }

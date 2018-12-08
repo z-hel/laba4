@@ -27,8 +27,7 @@ public class SongsListViewHolder extends RecyclerView.ViewHolder {
         songDuration = itemView.findViewById(R.id.songs_list_song_duration);
         songPicture = itemView.findViewById(R.id.songs_list_song_picture);
     }
-    public void bind(String songString, String albumPicture) {
-        Song song = Utils.getSongFromAssets(itemView.getContext(), songString);
+    public void bind(Song song, String albumPicture) {
 
         int duration = Integer.valueOf(song.getDuration());
 

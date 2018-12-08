@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 
 import com.zhel.musicplayer.R;
 import com.zhel.musicplayer.domain.models.Song;
-import com.zhel.musicplayer.ui.activities.PlaylistActivity;
 import com.zhel.musicplayer.ui.viewholders.SongsListViewHolder;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 import utils.Utils;
 
@@ -21,11 +19,13 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsListViewHolder> {
     private List<String> songsList;
     private Context context;
     private String albumPicture;
+    private OnSongClickListener onSongClickListener;
 
-    public SongsAdapter(List<String> songsList, String albumPicture, Context context) {
+    public SongsAdapter(List<String> songsList, String albumPicture, Context context, OnSongClickListener onSongClickListener) {
         this.songsList = songsList;
         this.albumPicture = albumPicture;
         this.context = context;
+        this.onSongClickListener = onSongClickListener;
     }
 
     @NonNull
@@ -41,8 +41,9 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsListViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull SongsListViewHolder viewHolder, int position) {
         String songString = songsList.get(position);
-
-        viewHolder.bind(songString, albumPicture);
+        Song song = Utils.getSongFromAssets(viewHolder.itemView.getContext(), songString);
+        viewHolder.bind(song, albumPicture);
+        viewHolder.itemView.setOnClickListener(s -> onSongClickListener.onSongClick(song));
     }
 
     @Override
@@ -50,4 +51,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsListViewHolder> {
         return songsList.size();
     }
 
+    public interface OnSongClickListener {
+        void onSongClick(Song song);
+    }
 }
