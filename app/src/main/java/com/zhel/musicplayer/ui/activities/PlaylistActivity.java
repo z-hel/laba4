@@ -13,13 +13,18 @@ import com.zhel.musicplayer.R;
 import com.zhel.musicplayer.data.Repository;
 import com.zhel.musicplayer.data.impl.RepositoryImpl;
 import com.zhel.musicplayer.domain.models.Playlist;
+import com.zhel.musicplayer.domain.models.Song;
 import com.zhel.musicplayer.ui.adapters.SongsAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlaylistActivity extends AppCompatActivity {
 
     private TextView playlistName;
     private RecyclerView songsListView;
     private Repository repository = new RepositoryImpl(this);
+    public static final String PLAYLIST_KEY = "PLAYLIST_KEY";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,24 +36,34 @@ public class PlaylistActivity extends AppCompatActivity {
         playlistName = findViewById(R.id.playlist_name);
         songsListView = findViewById(R.id.songs_list);
 
-        playlistName.setText(((Playlist)(intent.getSerializableExtra("key"))).getName());
+        Playlist playlist = (Playlist) (intent.getSerializableExtra(PLAYLIST_KEY));
+
+        playlistName.setText(playlist.getName());
 
         this.findViewById(R.id.back).setOnClickListener(back -> onBackPressed());
 
+        List<Song> songs = new ArrayList<>();
 
-        SongsAdapter adapter = new SongsAdapter(((Playlist)(intent.getSerializableExtra("key"))).getSongs(), ((Playlist)(intent.getSerializableExtra("key"))).getPicture(), this, player -> {
+        for (String filename : playlist.getSongs()) {
+            songs.add(repository.getSongByFileName(filename));
+        }
 
-            Intent intentPlayer = new Intent(PlaylistActivity.this, PlayerActivity.class);
+        SongsAdapter adapter = new SongsAdapter(
+                songs,
+                playlist.getPicture(),
+                this,
+                song -> {
 
+                    Intent intentPlayer = new Intent(PlaylistActivity.this, PlayerActivity.class);
 
-            intentPlayer.putExtra("album", player.getAlbum());
-            intentPlayer.putExtra("name", player.getName());
-            intentPlayer.putExtra("artist", player.getArtist());
-            intentPlayer.putExtra("duration", player.getDuration());
-            intentPlayer.putExtra("picture", ((Playlist)(intent.getSerializableExtra("key"))).getPicture());
+                    intentPlayer.putExtra("album", song.getAlbum());
+                    intentPlayer.putExtra("name", song.getName());
+                    intentPlayer.putExtra("artist", song.getArtist());
+                    intentPlayer.putExtra("duration", song.getDuration());
+                    intentPlayer.putExtra("picture", playlist.getPicture());
 
-            startActivity(intentPlayer);
-        });
+                    startActivity(intentPlayer);
+                });
         songsListView.setAdapter(adapter);
 
     }

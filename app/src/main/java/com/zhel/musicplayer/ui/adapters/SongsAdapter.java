@@ -16,12 +16,13 @@ import java.util.List;
 import utils.Utils;
 
 public class SongsAdapter extends RecyclerView.Adapter<SongsListViewHolder> {
-    private List<String> songsList;
+
+    private List<Song> songsList;
     private Context context;
     private String albumPicture;
     private OnSongClickListener onSongClickListener;
 
-    public SongsAdapter(List<String> songsList, String albumPicture, Context context, OnSongClickListener onSongClickListener) {
+    public SongsAdapter(List<Song> songsList, String albumPicture, Context context, OnSongClickListener onSongClickListener) {
         this.songsList = songsList;
         this.albumPicture = albumPicture;
         this.context = context;
@@ -40,8 +41,9 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsListViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SongsListViewHolder viewHolder, int position) {
-        String songString = songsList.get(position);
-        Song song = Utils.getSongFromAssets(viewHolder.itemView.getContext(), songString);
+
+        Song song = songsList.get(position);
+
         viewHolder.bind(song, albumPicture);
         viewHolder.itemView.setOnClickListener(s -> onSongClickListener.onSongClick(song));
     }

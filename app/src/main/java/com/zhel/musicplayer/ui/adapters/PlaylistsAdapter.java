@@ -19,7 +19,6 @@ public class PlaylistsAdapter extends RecyclerView.Adapter<PlaylistViewHolder> {
 
     private OnPlaylistClickListener onPlaylistClickListener;
 
-
     public PlaylistsAdapter(List<Playlist> playlists, Context context, OnPlaylistClickListener onPlaylistClickListener) {
 
         this.onPlaylistClickListener = onPlaylistClickListener;

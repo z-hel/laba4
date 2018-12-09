@@ -22,30 +22,4 @@ public class Utils {
         }
     }
 
-    public static Song getSongFromAssets(Context context, String songFile) {
-
-        String artist;
-        String duration;
-        String album;
-        String name;
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
-        try {
-            AssetFileDescriptor afd = context.getAssets().openFd(songFile);
-            mmr.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
-
-            artist = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-            duration = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
-            album = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
-            name = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-
-        } catch (IOException e) {
-            artist = "Unknown Artist";
-            duration = "0:00";
-            album = "Unknown Album";
-            name = "Unknown Name";
-        }
-        mmr.release();
-
-        return new Song(name, duration, album, artist);
-    }
 }

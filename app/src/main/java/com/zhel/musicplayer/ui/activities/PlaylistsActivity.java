@@ -11,10 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.zhel.musicplayer.R;
-import com.zhel.musicplayer.domain.models.Playlist;
-import com.zhel.musicplayer.ui.adapters.PlaylistsAdapter;
 import com.zhel.musicplayer.data.Repository;
 import com.zhel.musicplayer.data.impl.RepositoryImpl;
+import com.zhel.musicplayer.ui.adapters.PlaylistsAdapter;
 
 public class PlaylistsActivity extends AppCompatActivity {
 
@@ -36,7 +35,7 @@ public class PlaylistsActivity extends AppCompatActivity {
 
             Intent intent = new Intent(PlaylistsActivity.this, PlaylistActivity.class);
 
-            intent.putExtra("key", playlist);
+            intent.putExtra(PlaylistActivity.PLAYLIST_KEY, playlist);
 
             startActivity(intent);
         }));
