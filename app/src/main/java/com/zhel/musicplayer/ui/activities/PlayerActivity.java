@@ -9,8 +9,18 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.zhel.musicplayer.R;
+import com.zhel.musicplayer.data.Repository;
+import com.zhel.musicplayer.data.impl.RepositoryImpl;
+import com.zhel.musicplayer.domain.models.Playlist;
+import com.zhel.musicplayer.domain.models.Song;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import utils.Utils;
+
+import static com.zhel.musicplayer.ui.activities.PlaylistActivity.PLAYLIST_KEY;
+import static com.zhel.musicplayer.ui.activities.PlaylistActivity.SONG_POSITION_KEY;
 
 public class PlayerActivity extends AppCompatActivity{
 
@@ -24,9 +34,11 @@ public class PlayerActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song);
 
+        Repository repository = new RepositoryImpl(this);
         Intent intent = getIntent();
 
         durationFull = findViewById(R.id.song_duration_full);
@@ -37,8 +49,17 @@ public class PlayerActivity extends AppCompatActivity{
         songPicture = findViewById(R.id.song_picture);
         songSeekBar = findViewById(R.id.song_seek_bar_duration);
 
+        Playlist playlist = (Playlist) intent.getSerializableExtra(PLAYLIST_KEY);
+        int position = (int) intent.getSerializableExtra(SONG_POSITION_KEY);
 
-        int duration = Integer.valueOf(intent.getSerializableExtra("duration").toString());
+        List<Song> songs = new ArrayList<>();
+        for (String fileName: playlist.getSongs()) {
+            songs.add(repository.getSongByFileName(fileName));
+        }
+
+        Song chooseSong = songs.get(position);
+
+        int duration = Integer.valueOf(chooseSong.getDuration());
 
         String min =  Integer.toString(duration / 60000);
         String sec =  Integer.toString((duration % 60000) / 1000);
@@ -49,10 +70,10 @@ public class PlayerActivity extends AppCompatActivity{
 
         durationFull.setText(String.format("%s:%s", min, sec));
         durationEdit.setText("0:00");
-        songName.setText(intent.getSerializableExtra("name").toString());
-        songArtist.setText(intent.getSerializableExtra("artist").toString());
-        songAlbum.setText(intent.getSerializableExtra("album").toString());
-        songPicture.setImageDrawable(Utils.getDrawableFromAssets(this, intent.getSerializableExtra("picture").toString()));
+        songName.setText(chooseSong.getName());
+        songArtist.setText(chooseSong.getArtist());
+        songAlbum.setText(chooseSong.getAlbum());
+        songPicture.setImageDrawable(Utils.getDrawableFromAssets(this, playlist.getPicture()));
 
     }
 }

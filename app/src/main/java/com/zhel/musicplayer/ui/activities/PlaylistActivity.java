@@ -25,6 +25,7 @@ public class PlaylistActivity extends AppCompatActivity {
     private RecyclerView songsListView;
     private Repository repository = new RepositoryImpl(this);
     public static final String PLAYLIST_KEY = "PLAYLIST_KEY";
+    public static final String SONG_POSITION_KEY = "SONG_POSITION_KEY";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,15 +53,12 @@ public class PlaylistActivity extends AppCompatActivity {
                 songs,
                 playlist.getPicture(),
                 this,
-                song -> {
+                songPosition -> {
 
                     Intent intentPlayer = new Intent(PlaylistActivity.this, PlayerActivity.class);
 
-                    intentPlayer.putExtra("album", song.getAlbum());
-                    intentPlayer.putExtra("name", song.getName());
-                    intentPlayer.putExtra("artist", song.getArtist());
-                    intentPlayer.putExtra("duration", song.getDuration());
-                    intentPlayer.putExtra("picture", playlist.getPicture());
+                    intentPlayer.putExtra(PLAYLIST_KEY, playlist);
+                    intentPlayer.putExtra(SONG_POSITION_KEY, songPosition);
 
                     startActivity(intentPlayer);
                 });
