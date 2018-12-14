@@ -1,6 +1,8 @@
 package com.zhel.musicplayer.ui.activities;
 
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,10 +11,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.zhel.musicplayer.R;
+import com.zhel.musicplayer.data.Repository;
+import com.zhel.musicplayer.data.impl.RepositoryImpl;
 
 import utils.Utils;
 
 public class PlayerActivity extends AppCompatActivity{
+
+    Repository repository = new RepositoryImpl(this);
 
     private TextView durationFull;
     private TextView durationEdit;
@@ -21,6 +27,9 @@ public class PlayerActivity extends AppCompatActivity{
     private TextView songAlbum;
     private ImageView songPicture;
     private SeekBar songSeekBar;
+
+    private int flagPlay = 0;
+    private int flagPause = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,5 +63,29 @@ public class PlayerActivity extends AppCompatActivity{
         songAlbum.setText(intent.getSerializableExtra("album").toString());
         songPicture.setImageDrawable(Utils.getDrawableFromAssets(this, intent.getSerializableExtra("picture").toString()));
 
+        findViewById(R.id.back).setOnClickListener(back -> onBackPressed());
+        findViewById(R.id.song_play_pause).setOnClickListener(play -> play(flagPlay));
+    }
+
+    public void play(int flagPlayOrPause) {
+        if (flagPlayOrPause == flagPlay) {
+            findViewById(R.id.song_play_pause).setBackgroundResource(R.drawable.ic_pause_circle_outline_black_48dp);
+            MediaPlayer mediaPlayer = new MediaPlayer();
+//            mediaPlayer.setDataSource(repository);
+            mediaPlayer.start();
+        }
+
+//        int requestResult = requestAudioFocus();
+//        if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
+//            internalPlay();
+//        }
+//        else if (requestResult == AudioManager.AUDIOFOCUS_REQUEST_DELAYED) {
+//            playOnFocusGain = true;
+//        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
