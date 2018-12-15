@@ -101,13 +101,14 @@ public class PlayerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (mediaPlayer != null) {
-                    int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;
-                    songSeekBar.setProgress(mCurrentPosition);
-                    durationEdit.setText(getDurationString(mediaPlayer.getCurrentPosition()));
+                    try {
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;//??????? TODO
+                        songSeekBar.setProgress(mCurrentPosition);
+                        durationEdit.setText(getDurationString(mediaPlayer.getCurrentPosition()));
 //
-//                    if (mCurrentPosition == duration) {
-//                        playForward(position, playlist.getPicture());
-//                    }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 mHandler.postDelayed(this, 1000);
             }
