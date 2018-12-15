@@ -61,7 +61,7 @@ public class RepositoryImpl implements Repository {
         }
         mmr.release();
 
-        return new Song(name, duration, album, artist);
+        return new Song(name, duration, album, artist, fileName);
     }
 
     private String readPlaylistsJson() {

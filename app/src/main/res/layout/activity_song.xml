@@ -66,6 +66,7 @@
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toTopOf="@+id/song_name"
         app:layout_constraintStart_toStartOf="@+id/song_seek_bar_duration"
+        android:text="@string/zeroDuration"
         tools:text="0:00" />
 
     <TextView
@@ -131,7 +132,8 @@
         android:src='@drawable/ic_play_circle_outline_black_48dp'
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/song_forward"
-        app:layout_constraintStart_toEndOf="@id/song_rewind" />
+        app:layout_constraintStart_toEndOf="@id/song_rewind"
+        />
 
     <ImageView
         android:id="@+id/song_forward"
