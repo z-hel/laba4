@@ -49,7 +49,7 @@ public class PlayerActivity extends AppCompatActivity {
     private ImageView playForwardPicture;
     private ImageView playRewindPicture;
     private int position;
-    private int duration;
+    private boolean durationFirstValue = true;
 
     private MediaPlayer mediaPlayer = new MediaPlayer();
 
@@ -85,14 +85,17 @@ public class PlayerActivity extends AppCompatActivity {
         Song chooseSong = songs.get(position);
 
         setSong(chooseSong, playlist.getPicture());
-
-
-
-
-//        duration = Integer.valueOf(chooseSong.getDuration());
+//        int duration = Integer.valueOf(chooseSong.getDuration());
+//        durationFull.setText(getDurationString(duration));
+//        songName.setText(chooseSong.getName());
+//        songArtist.setText(chooseSong.getArtist());
+//        songAlbum.setText(chooseSong.getAlbum());
+//        songPicture.setImageDrawable(Utils.getDrawableFromAssets(this, playlist.getPicture()));
+//        playPausePicture.setImageResource(R.drawable.ic_play_circle_outline_black_48dp);
+//
 //        songSeekBar.setMax(duration / 1000);
 
-
+        playPrepare(chooseSong);
 
         Handler mHandler = new Handler();
 //Make sure you update Seekbar on UI thread
@@ -100,15 +103,19 @@ public class PlayerActivity extends AppCompatActivity {
 
             @Override
             public void run() {
+//                int mCurrentPosition = 0;
                 if (mediaPlayer != null) {
                     try {
-                        int mCurrentPosition = mediaPlayer.getCurrentPosition() / 1000;//??????? TODO
-                        songSeekBar.setProgress(mCurrentPosition);
-                        durationEdit.setText(getDurationString(mediaPlayer.getCurrentPosition()));
+                        int mCurrentPosition = mediaPlayer.getCurrentPosition();
+                        songSeekBar.setProgress(mCurrentPosition/1000);
 //
+                        durationEdit.setText(getDurationString(mCurrentPosition));
+//                        songSeekBar.setProgress(mCurrentPosition);
+////
+//                        durationEdit.setText(getDurationString(mCurrentPosition));
                     } catch (Exception e) {
-                        e.printStackTrace();
                     }
+
                 }
                 mHandler.postDelayed(this, 1000);
             }
@@ -119,11 +126,9 @@ public class PlayerActivity extends AppCompatActivity {
 //        if (playPausePicture.getDrawable().equals(getResources().getDrawable(R.drawable.ic_play_circle_outline_black_48dp)))
 
 //        AssetFileDescriptor afd = null;
-        playPrepare(chooseSong);
 
-        playPausePicture.setOnClickListener(play -> {
-            playCurrent();
-        });
+
+        playPausePicture.setOnClickListener(play -> playCurrent());
 
         playForwardPicture.setOnClickListener(play -> {
 
