@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -73,6 +74,7 @@ public class PlayerActivity extends AppCompatActivity {
         playForwardPicture = findViewById(R.id.song_forward);
         playRewindPicture = findViewById(R.id.song_rewind);
 
+        songSeekBar.setEnabled(false);
 
         Playlist playlist = (Playlist) intent.getSerializableExtra(PLAYLIST_KEY);
         position = (int) intent.getSerializableExtra(SONG_POSITION_KEY);
@@ -202,19 +204,35 @@ public class PlayerActivity extends AppCompatActivity {
 
     public void playCurrent() {
 
+//        if (Build.VERSION.SDK_INT > 21) {}
+//        android.support.graphics.drawable.VectorDrawableCompat$VectorDrawableCompatState@727df86
+//        android.graphics.drawable.VectorDrawable$VectorDrawableState@19b93047
+//
+//            if (playPausePicture.getDrawable().getConstantState().equals(Objects.requireNonNull(getDrawable(R.drawable.ic_play_circle_outline_black_48dp)).getConstantState())) {
+//
+//                playPausePicture.setImageResource(R.drawable.ic_pause_circle_outline_black_48dp);
+//                mediaPlayer.start();
+//
+//            } else if (playPausePicture.getDrawable().getConstantState() == Objects.requireNonNull(getDrawable(R.drawable.ic_pause_circle_outline_black_48dp)).getConstantState()) {
+//
+//                if (mediaPlayer.isPlaying()) {
+//                    playPausePicture.setImageResource(R.drawable.ic_play_circle_outline_black_48dp);
+//                    mediaPlayer.pause();
+//                }
+//            }
 
-        if (playPausePicture.getDrawable().getConstantState() == Objects.requireNonNull(getDrawable(R.drawable.ic_play_circle_outline_black_48dp)).getConstantState()) {
-
+        if (mediaPlayer.isPlaying()) {
+            playPausePicture.setImageResource(R.drawable.ic_play_circle_outline_black_48dp);
+            mediaPlayer.pause();
+        } else {
             playPausePicture.setImageResource(R.drawable.ic_pause_circle_outline_black_48dp);
             mediaPlayer.start();
-
-        } else if (playPausePicture.getDrawable().getConstantState() == Objects.requireNonNull(getDrawable(R.drawable.ic_pause_circle_outline_black_48dp)).getConstantState()) {
-
-            if (mediaPlayer.isPlaying()) {
-                playPausePicture.setImageResource(R.drawable.ic_play_circle_outline_black_48dp);
-                mediaPlayer.pause();
-            }
         }
+//        else {
+//            System.out.println(playPausePicture.getDrawable().getConstantState());
+//            System.out.println(Objects.requireNonNull(getDrawable(R.drawable.ic_play_circle_outline_black_48dp)).getConstantState());
+//            System.out.println("1");
+//        }
 
     }
 

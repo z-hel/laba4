@@ -14,6 +14,7 @@ import com.zhel.musicplayer.domain.models.Song;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +56,7 @@ public class RepositoryImpl implements Repository {
 
         } catch (IOException e) {
             artist = "Unknown Artist";
-            duration = "0:00";
+            duration = "0";
             album = "Unknown Album";
             name = "Unknown Name";
         }
